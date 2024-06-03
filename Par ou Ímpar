@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Par ou Ímpar</title>
+</head>
+<body>
+    <h1>Par ou Ímpar</h1>
+
+    <form id="formularioParImpar">
+        <label for="escolhaParImpar">Escolha Par ou Ímpar:</label>
+        <select id="escolhaParImpar" name="escolhaParImpar" required>
+            <option value="par">Par</option>
+            <option value="impar">Ímpar</option>
+        </select>
+        <br>
+
+        <label for="numeroUsuario">Seu número (entre 1 e 9):</label>
+        <input type="number" id="numeroUsuario" name="numeroUsuario" min="1" max="9" required>
+        <br>
+
+        <button type="submit">Jogar</button>
+    </form>
+
+    <div id="resultadoJogo"></div>
+
+    <script>
+        const formularioParImpar = document.getElementById('formularioParImpar');
+        const resultadoJogo = document.getElementById('resultadoJogo');
+
+        formularioParImpar.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const escolhaParImpar = document.getElementById('escolhaParImpar').value;
+            const numeroUsuario = parseInt(document.getElementById('numeroUsuario').value);
+
+            if (numeroUsuario < 1 || numeroUsuario > 9) {
+                resultadoJogo.innerHTML = 'Número inválido. Digite um número entre 1 e 9.';
+                return;
+            }
+
+            const numeroComputador = Math.floor(Math.random() * 10); // Gera número aleatório entre 0 e 9
+            const soma = numeroUsuario + numeroComputador;
+
+            let resultado;
+            if (soma % 2 === 0) {
+                resultado = (escolhaParImpar === 'par') ? 'Você venceu!' : 'Você perdeu.';
+            } else {
+                resultado = (escolhaParImpar === 'impar') ? 'Você venceu!' : 'Você perdeu.';
+            }
+
+            resultadoJogo.innerHTML = `Você escolheu ${escolhaParImpar}, seu número foi ${numeroUsuario}, o número do computador foi ${numeroComputador}. ${resultado}`;
+        });
+    </script>
+</body>
+</html>
